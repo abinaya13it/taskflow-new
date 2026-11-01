@@ -2,6 +2,7 @@ import { useState } from "react";
 import "../styles/Login.css";
 import { Link, useNavigate } from "react-router-dom";
 import api from "../services/api";
+import ThemeToggle from "../components/ThemeToggle";
 
 function Login() {
     const navigate = useNavigate();
@@ -44,6 +45,9 @@ function Login() {
 
     return (
         <div className="login-container">
+            <div className="auth-theme-toggle">
+                <ThemeToggle showLabel={true} />
+            </div>
             <div className="login-card">
                 <div className="brand-header">
                     <span className="brand-badge">Java Full Stack</span>

@@ -1,14 +1,17 @@
+/* Modern Responsive Navbar */
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #0f172a;
-    color: white;
-    padding: 14px 32px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    background: var(--bg-navbar);
+    color: var(--text-main);
+    padding: 12px 28px;
+    box-shadow: var(--nav-shadow);
+    border-bottom: 1px solid var(--border-main);
     position: sticky;
     top: 0;
     z-index: 100;
+    transition: background-color 0.25s ease, border-color 0.25s ease;
 }
 
 .nav-brand {
@@ -22,14 +25,15 @@
     align-items: center;
     gap: 8px;
     text-decoration: none;
-    color: white;
+    color: var(--text-main);
 }
 
 .brand-logo h2 {
     font-size: 20px;
-    font-weight: 700;
+    font-weight: 800;
     letter-spacing: -0.5px;
-    color: white;
+    color: var(--text-main);
+    margin: 0;
 }
 
 .logo-icon {
@@ -38,9 +42,9 @@
 
 .backend-tag {
     font-size: 11px;
-    background: rgba(37, 99, 235, 0.25);
-    color: #60a5fa;
-    border: 1px solid rgba(96, 165, 250, 0.35);
+    background: var(--accent-light);
+    color: var(--accent-primary);
+    border: 1px solid var(--border-main);
     padding: 3px 8px;
     border-radius: 12px;
     font-weight: 600;
@@ -50,11 +54,16 @@
 .nav-actions {
     display: flex;
     align-items: center;
-    gap: 18px;
+    gap: 14px;
+}
+
+.nav-theme-wrap {
+    display: flex;
+    align-items: center;
 }
 
 .nav-btn-create {
-    background: #2563eb;
+    background: var(--accent-gradient);
     color: white;
     border: none;
     padding: 8px 16px;
@@ -62,44 +71,108 @@
     font-size: 13px;
     font-weight: 600;
     cursor: pointer;
-    transition: background 0.2s;
-    width: auto;
+    box-shadow: 0 2px 10px var(--accent-glow);
+    transition: all 0.2s ease;
+    white-space: nowrap;
 }
 
 .nav-btn-create:hover {
-    background: #1d4ed8;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px var(--accent-glow);
+    opacity: 0.95;
 }
 
-.user-profile {
+/* Clickable User Profile Pill */
+.user-profile-btn {
     display: flex;
     align-items: center;
-    gap: 8px;
-    background: rgba(255, 255, 255, 0.08);
-    padding: 6px 14px;
-    border-radius: 20px;
+    gap: 10px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-main);
+    padding: 4px 12px 4px 5px;
+    border-radius: 24px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+}
+
+.user-profile-btn:hover {
+    border-color: var(--accent-primary);
+    background: var(--bg-card-hover);
+    box-shadow: 0 2px 8px var(--accent-glow);
+    transform: translateY(-1px);
+}
+
+.user-nav-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #2563eb, #8b5cf6);
+    color: white;
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px rgba(37, 99, 235, 0.3);
+}
+
+.user-nav-info {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+}
+
+.user-nav-name {
     font-size: 13px;
+    font-weight: 600;
+    color: var(--text-main);
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.user-nav-role {
+    font-size: 10px;
+    color: var(--text-muted);
     font-weight: 500;
 }
 
-.avatar {
-    font-size: 16px;
+.user-nav-caret {
+    font-size: 10px;
+    color: var(--text-muted);
+    margin-left: 2px;
 }
 
 .btn-logout {
     background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: #cbd5e1;
-    padding: 6px 14px;
+    border: 1px solid var(--border-main);
+    color: var(--text-sub);
+    padding: 7px 14px;
     border-radius: 8px;
     font-size: 13px;
-    font-weight: 500;
+    font-weight: 600;
     cursor: pointer;
     transition: all 0.2s;
-    width: auto;
+    white-space: nowrap;
 }
 
 .btn-logout:hover {
-    background: rgba(239, 68, 68, 0.15);
-    border-color: #ef4444;
-    color: #fca5a5;
+    background: rgba(239, 68, 68, 0.12);
+    border-color: var(--danger-color);
+    color: var(--danger-color);
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        padding: 10px 16px;
+    }
+    .backend-tag,
+    .user-nav-role {
+        display: none;
+    }
+    .user-nav-name {
+        max-width: 80px;
+    }
 }

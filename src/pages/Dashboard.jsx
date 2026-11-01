@@ -1,12 +1,13 @@
 import { useState, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
+import UserDetailsModal from "../components/UserDetailsModal";
 import api from "../services/api";
 import "../styles/Dashboard.css";
 
 function Dashboard() {
     const navigate = useNavigate();
-    const [currentUser] = useState(() => {
+    const [currentUser, setCurrentUser] = useState(() => {
         try {
             const stored = localStorage.getItem("taskflow_user");
             return stored ? JSON.parse(stored) : null;
@@ -14,6 +15,8 @@ function Dashboard() {
             return null;
         }
     });
+
+    const [profileModalOpen, setProfileModalOpen] = useState(false);
 
     const [tasks, setTasks] = useState([]);
     const [stats, setStats] = useState({ total: 0, todo: 0, inProgress: 0, completed: 0 });
@@ -176,9 +179,28 @@ function Dashboard() {
         });
     }, [tasks, searchQuery, statusFilter, priorityFilter]);
 
+    function handleLogout() {
+        localStorage.removeItem("taskflow_user");
+        localStorage.removeItem("taskflow_token");
+        navigate("/login");
+    }
+
     return (
         <div className="dashboard-page">
-            <Navbar onOpenNewTask={openCreateModal} />
+            <Navbar
+                onOpenNewTask={openCreateModal}
+                onOpenProfile={() => setProfileModalOpen(true)}
+                user={currentUser}
+            />
+
+            <UserDetailsModal
+                isOpen={profileModalOpen}
+                onClose={() => setProfileModalOpen(false)}
+                user={currentUser}
+                stats={stats}
+                onUserUpdated={(updated) => setCurrentUser(updated)}
+                onLogout={handleLogout}
+            />
 
             {toast && <div className="toast-notification">{toast}</div>}
 
